@@ -8,7 +8,12 @@ model = joblib.load('Mango.pkl')
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('newindex.html')
+
+@app.route('/login')
+def login():
+    return render_template('loginPage.html')
+
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -20,7 +25,7 @@ def predict():
         prediction = model.predict([[price]])
         
         # Render the result on the page
-        return render_template('index.html', prediction_text=f'Estimated Price in Rupees = {prediction[0]:.2f}')
+        return render_template('newindex.html', prediction_text=f'Estimated Price in Rupees = {prediction[0]:.2f}')
     
     except KeyError as e:
         return f"KeyError: The form field '{e.args[0]}' is missing.", 400
